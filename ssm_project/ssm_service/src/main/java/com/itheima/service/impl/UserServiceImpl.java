@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfo findByUsername(String username) {
-       return userDao.findByUsername(username);
+       return userDao.findByName(username);
     }
 
     @Override
@@ -58,6 +58,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteRole(QueryBean qb) {
         userDao.deleteRole(qb);
+    }
+
+    @Override
+    public void updateRole(String uid,String[] rids) {
+        QueryBean queryBean = new QueryBean();
+        queryBean.setUid(uid);
+        userDao.deleteRoleByUid(uid);
+        for (String rid : rids) {
+            queryBean.setRid(rid);
+            userDao.addRole(queryBean);
+        }
     }
 
 

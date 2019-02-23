@@ -212,7 +212,7 @@
 								<%--<li><a href="#">5</a></li>--%>
 								<li><a href="${pageContext.request.contextPath}/role/findAll.do?page=${pageInfo.nextPage}&pageSize=${pageInfo.pageSize}">下一页</a></li>
 								<li>
-									<a href="${pageContext.request.contextPath}/role/findAll.do?page=${pageInfo.pages}&pageSize=${pages.pageSize}" aria-label="Next">尾页</a>
+									<a href="${pageContext.request.contextPath}/role/findAll.do?page=${pageInfo.pages}&pageSize=${pageInfo.pageSize}" aria-label="Next">尾页</a>
 								</li>
 							</ul>
 						</div>
@@ -343,6 +343,11 @@
 															!clicks);
 												});
 							});
+            $(function () {
+                $("#sel").change(function () {
+                    location.href="${pageContext.request.contextPath}/sysLog/findAll?page=${pageInfo.pages}&pageSize="+$("#sel").val();
+                })
+            })
 		</script>
 </body>
 

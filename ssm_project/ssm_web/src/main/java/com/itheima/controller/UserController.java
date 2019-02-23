@@ -85,4 +85,24 @@ public class UserController {
         }
         return "redirect: findAll";
     }
+    @RequestMapping("/updateRole")
+    @RolesAllowed({"SYSTEM"})
+    public String toUpdateByUsername(String username,Map map){
+        UserInfo user = userService.findByUsername(username);
+        List<Role> list = roleService.findAll();
+        for (Role role : list) {
+            if (user.getRoles().contains(role)){
+                role.setFlag(true);
+            }
+        }
+        map.put("user",user);
+        map.put("roleList",list);
+        return "user-role-update";
+    }
+    @RequestMapping("/saveUpdateRole")
+    @RolesAllowed({"SYSTEM"})
+    public String UpdateRole(String uid, String[] rids, Map map){
+        userService.updateRole(uid,rids);
+        return "redirect: findAll";
+    }
 }

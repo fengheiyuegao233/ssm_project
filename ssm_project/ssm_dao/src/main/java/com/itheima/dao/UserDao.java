@@ -8,8 +8,10 @@ import java.util.List;
 
 public interface UserDao {
     UserInfo findByUsername(String username);
+    UserInfo findByName(String username);
     List<UserInfo> findAll();
     void saveUser(UserInfo user);
     void addRole(QueryBean qb);
     void deleteRole(QueryBean qb);
+    void deleteRoleByUid(String uid);
 }

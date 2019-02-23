@@ -8,6 +8,9 @@
         <collection property="roles" ofType="role" column="id" select="com.itheima.dao.RoleDao.findByUserId"/>
     </resultMap>
     <select id="findByUsername" parameterType="String" resultMap="userMap">
+        SELECT * from users WHERE username=#{username} and status=1
+    </select>
+    <select id="findByName" parameterType="String" resultMap="userMap">
         SELECT * from users WHERE username=#{username}
     </select>
     <select id="findAll" resultType="userinfo">
@@ -21,5 +24,8 @@
     </insert>
     <delete id="deleteRole" parameterType="QueryBean">
         delete from users_role WHERE USERID=#{uid} and ROLEID=#{rid}
+    </delete>
+    <delete id="deleteRoleByUid" parameterType="String">
+        DELETE from users_role where USERID=#{uid}
     </delete>
 </mapper>

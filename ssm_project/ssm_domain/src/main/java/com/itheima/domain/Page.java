@@ -1,6 +1,7 @@
 package com.itheima.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Page<T> {
    private Integer page=1;
@@ -10,6 +11,9 @@ public class Page<T> {
    private Integer totelPage;
 
     public Integer getPage() {
+        if (page==null||page==0){
+            page=1;
+        }
         return page;
     }
 
@@ -18,6 +22,9 @@ public class Page<T> {
     }
 
     public Integer getPageSize() {
+        if (pageSize==0||pageSize==null){
+            pageSize=3;
+        }
         return pageSize;
     }
 

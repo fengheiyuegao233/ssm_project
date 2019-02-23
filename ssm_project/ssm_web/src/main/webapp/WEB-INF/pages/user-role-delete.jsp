@@ -80,14 +80,14 @@
 			<!-- 内容头部 -->
 			<section class="content-header">
 			<h1>
-				用户管理 <small>添加角色表单</small>
+				用户管理 <small>删除角色表单</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/user/findAll.do">用户管理</a></li>
-				<li class="active">添加角色表单</li>
+				<li class="active">删除角色表单</li>
 			</ol>
 			</section>
 			<!-- 内容头部 /-->

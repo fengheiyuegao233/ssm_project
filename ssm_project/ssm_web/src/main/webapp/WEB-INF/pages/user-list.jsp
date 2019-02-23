@@ -157,6 +157,7 @@
 												<a href="${pageContext.request.contextPath}/user/show?username=${user.username}" class="btn bg-olive btn-xs">详情</a>
 												<a href="${pageContext.request.contextPath}/user/addRole?username=${user.username}" class="btn bg-olive btn-xs">添加角色</a>
                                                 <a href="${pageContext.request.contextPath}/user/deleteRole?username=${user.username}" class="btn bg-olive btn-xs">删除角色</a>
+												<a href="${pageContext.request.contextPath}/user/updateRole?username=${user.username}" class="btn bg-olive btn-xs">更新角色</a>
 											</td>
 										</tr>
 									</c:forEach>
@@ -216,7 +217,7 @@
 								<%--<li><a href="#">5</a></li>--%>
 								<li><a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.nextPage}&pageSize=${pageInfo.pageSize}">下一页</a></li>
 								<li>
-									<a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pages}&pageSize=${pages.pageSize}" aria-label="Next">尾页</a>
+									<a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pages}&pageSize=${pageInfo.pageSize}" aria-label="Next">尾页</a>
 								</li>
 							</ul>
 						</div>

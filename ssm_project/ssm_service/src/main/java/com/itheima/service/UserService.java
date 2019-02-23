@@ -13,5 +13,5 @@ public interface UserService extends UserDetailsService {
     UserInfo findByUsername(String username);
     void addRole(QueryBean qb);
     void deleteRole(QueryBean qb);
-
+    void updateRole(String uid,String[] rids);
 }
