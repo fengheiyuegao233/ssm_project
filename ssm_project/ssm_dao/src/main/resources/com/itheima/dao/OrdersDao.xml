@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itheima.dao.OrdersDao">
+    <resultMap id="ordersMap" type="orders">
+        <association property="product" column="PRODUCTID" javaType="Product"  select="com.itheima.dao.ProductDao.findById" fetchType="lazy" />
+        <association property="member" column="memberid" javaType="member" select="com.itheima.dao.MemberDao.findById" fetchType="lazy"/>
+        <collection property="travellers" column="travellerid" ofType="Traveller" select="com.itheima.dao.TravellerDao.findById" fetchType="lazy"/>
+    </resultMap>
+    <select id="findAll" resultMap="ordersMap">
+        select o.*,t.travellerid from orders o,order_traveller t WHERE t.orderid=o.id
+    </select>
+    <select id="findCount" resultType="int">
+        SELECT count(1) from orders
+    </select>
+    <select id="findByNum" resultMap="ordersMap" parameterType="String">
+         select o.*,t.travellerid from orders o,order_traveller t WHERE t.orderid=o.id and ordernum=#{num}
+    </select>
+
+</mapper>

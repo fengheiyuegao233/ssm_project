@@ -12,6 +12,7 @@
     <groupId>com.itheima</groupId>
     <artifactId>ssm_dao</artifactId>
     <dependencies>
+
         <dependency>
             <groupId>com.itheima</groupId>
             <artifactId>ssm_domain</artifactId>

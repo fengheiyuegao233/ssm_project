@@ -195,7 +195,7 @@
 								<div class="form-group form-inline">
 									<div class="btn-group">
 										<button type="button" class="btn btn-default" title="新建"
-											onclick="location.href='${pageContext.request.contextPath}/pages/product-add.jsp'">
+											onclick="location.href='${pageContext.request.contextPath}/path/pathname/product-add'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
 										<button type="button" class="btn btn-default" title="删除">
@@ -223,8 +223,11 @@
 							<!--工具栏/-->
 
 							<!--数据列表-->
+							<form action="${pageContext.request.contextPath}/product/delete" id="delForm" method="post" >
+
 							<table id="dataList"
 								class="table table-bordered table-striped table-hover dataTable">
+
 								<thead>
 									<tr>
 										<th class="" style="padding-right: 0px;"><input
@@ -244,10 +247,11 @@
 								<tbody>
 
 
-									<c:forEach items="${productList}" var="product">
+
+									<c:forEach items="${pages.list}" var="product">
 
 										<tr>
-											<td><input name="ids" type="checkbox"></td>
+											<td><input type="checkbox" name="pid" value="${product.id}"></td>
 											<td>${product.id }</td>
 											<td>${product.productNum }</td>
 											<td>${product.productName }</td>
@@ -257,12 +261,14 @@
 											<td>${product.productDesc }</td>
 											<td class="text-center">${product.productStatusStr }</td>
 											<td class="text-center">
-												<button type="button" class="btn bg-olive btn-xs">订单</button>
-												<button type="button" class="btn bg-olive btn-xs">详情</button>
-												<button type="button" class="btn bg-olive btn-xs">编辑</button>
+												<a type="button" class="btn bg-olive btn-xs">订单</a>
+												<a type="button" class="btn bg-olive btn-xs" href="${pageContext.request.contextPath}/product/show?num=${product.productNum}">详情</a>
+												<a type="button" class="btn bg-olive btn-xs" href="${pageContext.request.contextPath}/product/toUpdate?num=${product.productNum}">编辑</a>
 											</td>
 										</tr>
 									</c:forEach>
+
+
 								</tbody>
 								<!--
                             <tfoot>
@@ -274,9 +280,11 @@
                             <th>CSS grade</th>
                             </tr>
                             </tfoot>-->
+
 							</table>
 							<!--数据列表/-->
 
+							</form>
 							<!--工具栏-->
 							<div class="pull-left">
 								<div class="form-group form-inline">
@@ -284,14 +292,14 @@
 										<button type="button" class="btn btn-default" title="新建">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
-										<button type="button" class="btn btn-default" title="删除">
+										<button type="button" class="btn btn-default" title="删除" id="delete">
 											<i class="fa fa-trash-o"></i> 删除
 										</button>
-										<button type="button" class="btn btn-default" title="开启">
+										<button type="button" class="btn btn-default" title="开启" id="open">
 											<i class="fa fa-check"></i> 开启
 										</button>
-										<button type="button" class="btn btn-default" title="屏蔽">
-											<i class="fa fa-ban"></i> 屏蔽
+										<button type="button" class="btn btn-default" title="关闭" id="close">
+											<i class="fa fa-ban"></i> 关闭
 										</button>
 										<button type="button" class="btn btn-default" title="刷新">
 											<i class="fa fa-refresh"></i> 刷新
@@ -319,27 +327,40 @@
 					<div class="box-footer">
 						<div class="pull-left">
 							<div class="form-group form-inline">
-								总共2 页，共14 条数据。 每页 <select class="form-control">
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
+								总共${pages.totelPage} 页，共${pages.totelSize} 条数据。 每页 <select class="form-control" id="sel" name="sel">
+                                <option value="${pages.pageSize}">${pages.pageSize}</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
 								</select> 条
 							</div>
 						</div>
 
 						<div class="box-tools pull-right">
 							<ul class="pagination">
-								<li><a href="#" aria-label="Previous">首页</a></li>
-								<li><a href="#">上一页</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
-								<li><a href="#" aria-label="Next">尾页</a></li>
+								<li>
+									<a href="${pageContext.request.contextPath}/product/findAll.do?page=1&pageSize=${pages.pageSize}" aria-label="Previous">首页</a>
+								</li>
+								<li><a href="${pageContext.request.contextPath}/product/findAll.do?page=${pages.page-1}&pageSize=${pages.pageSize}">上一页</a></li>
+								<c:forEach begin="1" end="${pages.totelPage}" var="i">
+									<c:if test="${i==pages.page}">
+										<li><a href="#" style="background-color: #2aabd2" >${i}</a></li>
+									</c:if>
+									<c:if test="${i!=pages.page}">
+										<li ><a href="${pageContext.request.contextPath}/product/findAll.do?page=${i}&pageSize=${pages.pageSize}" >${i}</a></li>
+									</c:if>
+								</c:forEach>
+								<%--<li><a href="#">1</a></li>--%>
+								<%--<li><a href="#">2</a></li>--%>
+								<%--<li><a href="#">3</a></li>--%>
+								<%--<li><a href="#">4</a></li>--%>
+								<%--<li><a href="#">5</a></li>--%>
+								<li><a href="${pageContext.request.contextPath}/product/findAll.do?page=${pages.page+1}&pageSize=${pages.pageSize}">下一页</a></li>
+								<li>
+									<a href="${pageContext.request.contextPath}/product/findAll.do?page=${pages.totelPage}&pageSize=${pages.pageSize}" aria-label="Next">尾页</a>
+								</li>
 							</ul>
 						</div>
 
@@ -499,6 +520,55 @@
 				$(this).data("clicks", !clicks);
 			});
 		});
+		$(function () {
+			$("#delete").click(function () {
+				if(confirm("你确定要删除选中产品吗")){
+				    $("#delForm")[0].submit();
+				}
+            })
+        })
+        $(function () {
+            $("#open").click(function () {
+
+				var pid =document.getElementsByName("pid");
+				var str='';
+				for (var i=0;i<pid.length;i++){
+				   if(pid[i].checked){
+				       str+="pid="+pid[i].value
+                       if (i!=pid.length-1){
+                           str+='&';
+                       }
+				   }
+
+				}
+				location.href="${pageContext.request.contextPath}/product/open?"+str;
+
+            })
+        })
+        $(function () {
+            $("#close").click(function () {
+
+                var pid =document.getElementsByName("pid");
+                var str='';
+                for (var i=0;i<pid.length;i++){
+                    if(pid[i].checked){
+                        str+="pid="+pid[i].value
+                        if (i!=pid.length-1){
+                            str+='&';
+                        }
+                    }
+
+                }
+                location.href="${pageContext.request.contextPath}/product/close?"+str;
+
+            })
+        })
+        $(function () {
+            $("#sel").change(function () {
+                location.href="${pageContext.request.contextPath}/product/findAll?page=${pages.page}&pageSize="+$("#sel").val();
+
+            })
+        })
 	</script>
 </body>
 

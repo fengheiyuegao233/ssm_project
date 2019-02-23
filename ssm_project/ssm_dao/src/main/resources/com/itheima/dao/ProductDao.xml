@@ -7,6 +7,29 @@
         select * from product
     </select>
     <insert id="saveProduct" parameterType="Product">
-        INSERT into product VALUES (id,#{productNum},#{},#{},#{},#{},#{},#{},#{})
+        insert into product(productNum,productName,cityName,departureTime,productPrice,productDesc,productStatus)
+       values
+       (#{productNum},#{productName},#{cityName},#{departureTime},#{productPrice},#{productDesc},#{productStatus})
     </insert>
+    <select id="findById" resultType="Product" parameterType="String">
+        SELECT * from product where id=#{id}
+    </select>
+    <update id="update" parameterType="product">
+        UPDATE product set productName=#{productName},cityName=#{cityName},departureTime=#{departureTime},productPrice=#{productPrice},productDesc=#{productDesc},productStatus=#{productStatus}  where productNum=#{productNum}
+    </update>
+    <select id="findByNum" resultType="Product" parameterType="String">
+        SELECT * from product where productNum=#{Num}
+    </select>
+    <delete id="delete" parameterType="String">
+        DELETE  from product where id=#{id}
+    </delete>
+    <update id="openById" parameterType="String">
+        UPDATE product set productStatus=1 where id=#{id}
+    </update>
+    <update id="closeById" parameterType="String">
+        UPDATE product set productStatus=0 where id=#{id}
+    </update>
+   <select id="findCount" resultType="int">
+    SELECT count(1) from product
+</select>
 </mapper>

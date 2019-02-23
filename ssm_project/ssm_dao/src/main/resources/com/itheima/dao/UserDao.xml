@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.UserDao">
+    <resultMap id="userMap" type="userinfo">
+        <result column="ID" property="id" />
+        <collection property="roles" ofType="role" column="id" select="com.itheima.dao.RoleDao.findByUserId"/>
+    </resultMap>
+    <select id="findByUsername" parameterType="String" resultMap="userMap">
+        SELECT * from users WHERE username=#{username}
+    </select>
+    <select id="findAll" resultType="userinfo">
+        SELECT * from users
+    </select>
+    <insert id="saveUser" parameterType="userinfo">
+        INSERT into users(email,username,password,phonenum,status) VALUES (#{email},#{username},#{password},#{phoneNum},#{status})
+    </insert>
+    <insert id="addRole" parameterType="QueryBean">
+        insert into users_role VALUES (#{uid},#{rid})
+    </insert>
+    <delete id="deleteRole" parameterType="QueryBean">
+        delete from users_role WHERE USERID=#{uid} and ROLEID=#{rid}
+    </delete>
+</mapper>

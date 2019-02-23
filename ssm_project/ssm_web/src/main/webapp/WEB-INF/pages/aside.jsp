@@ -11,7 +11,7 @@
 					class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>xxx</p>
+				<p>${SPRING_SECURITY_CONTEXT.authentication.principal.username}</p>
 				<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 			</div>
 		</div>
@@ -20,7 +20,7 @@
 		<ul class="sidebar-menu">
 			<li class="header">菜单</li>
 			<li id="admin-index"><a
-				href="${pageContext.request.contextPath}/pages/main.jsp"><i
+				href="${pageContext.request.contextPath}/path/pathname/main"><i
 					class="fa fa-dashboard"></i> <span>首页</span></a></li>
 
 			<li class="treeview"><a href="#"> <i class="fa fa-cogs"></i>
@@ -33,11 +33,11 @@
 				<ul class="treeview-menu">
 
 					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/user/findAll.do"> <i
+						href="${pageContext.request.contextPath}/user/findAll?page=1&pageSize=3"> <i
 							class="fa fa-circle-o"></i> 用户管理
 					</a></li>
 					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/role/findAll.do"> <i
+						href="${pageContext.request.contextPath}/role/findAll"> <i
 							class="fa fa-circle-o"></i> 角色管理
 					</a></li>
 					<li id="system-setting"><a
@@ -56,12 +56,11 @@
 			</a>
 				<ul class="treeview-menu">
 
-					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/product/findAll.do">
+					<li id="system-setting"><a href="${pageContext.request.contextPath}/product/findAll?page=1&pageSize=3">
 							<i class="fa fa-circle-o"></i> 产品管理
 					</a></li>
 					<li id="system-setting"><a
-						href="${pageContext.request.contextPath}/orders/findAll.do?page=1&pageSize=3"> <i
+						href="${pageContext.request.contextPath}/orders/findAll?page=1&pageSize=3"> <i
 							class="fa fa-circle-o"></i> 订单管理
 					</a></li>
 

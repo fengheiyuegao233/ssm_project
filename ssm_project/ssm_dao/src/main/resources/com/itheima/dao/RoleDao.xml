@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.RoleDao">
+    <resultMap id="roleMap" type="role">
+        <result column="ID" property="id" />
+        <collection property="permissions" column="id" ofType="permission" select="com.itheima.dao.PermissionDao.findByRoleId"/>
+    </resultMap>
+    <select id="findByUserId" parameterType="String" resultMap="roleMap">
+        SELECT * from ROLE r,(SELECT * from USERS_ROLE where USERID=#{uid}) u where u.roleid=r.id
+    </select>
+    <select id="findAll" resultType="role">
+        SELECT * from role
+    </select>
+    <insert id="addPermission" parameterType="QueryBean">
+        insert into role_permission VALUES (#{pid},#{rid})
+    </insert>
+    <select id="findById" parameterType="String" resultMap="roleMap">
+        SELECT * from role where id=#{rid}
+    </select>
+    <insert id="save" parameterType="role">
+        insert into role(rolename,roledesc) VALUES (#{roleName},#{roleDesc})
+    </insert>
+    <delete id="deletePermission" parameterType="QueryBean">
+        DELETE from role_permission where permissionid=#{pid} and roleid=#{rid}
+    </delete>
+</mapper>

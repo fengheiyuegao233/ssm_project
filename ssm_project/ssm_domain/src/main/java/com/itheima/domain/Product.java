@@ -2,6 +2,7 @@ package com.itheima.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Product {
@@ -58,6 +59,10 @@ public class Product {
     }
 
     public String getDepartureTimeStr() {
+        if (departureTimeStr==null){
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm ");
+            setDepartureTimeStr(sdf.format(getDepartureTime()));
+        }
         return departureTimeStr;
     }
 
@@ -90,6 +95,13 @@ public class Product {
     }
 
     public String getProductStatusStr() {
+        if (productStatusStr==null){
+            if (getProductStatus()==1){
+                setProductStatusStr("开启");
+            }else {
+                setProductStatusStr("关闭");
+            }
+        }
         return productStatusStr;
     }
 
@@ -112,4 +124,5 @@ public class Product {
                 ", productStatusStr='" + productStatusStr + '\'' +
                 '}';
     }
+
 }
